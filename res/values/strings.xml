@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ShoppingList</string>
+    <string name="priceTxtName">Samlet pris:</string>
     <string name="menu_save">Save</string>
+    <string name="priceTxtPrice">0</string>
 </resources>
