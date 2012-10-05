@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -19,15 +20,23 @@ import java.util.ArrayList;
  */
 public class ShoplistFragment extends Fragment{
 
-    private ArrayList<Ware> wares = new ArrayList<Ware>();
-    private ListView wareList = (ListView) getActivity().findViewById(R.id.itemListView);
+    private ArrayList<Ware> wares;
+    private ListView wareList;
+    private TextView priceText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
     }
 
+    @Override
     public void onStart(){
+        super.onStart();
+        wares = new ArrayList<Ware>();
+        wareList = (ListView) getActivity().findViewById(R.id.itemListView);
+        priceText = (TextView) getActivity().findViewById(R.id.priceTxtPriceId);
+
         ArrayAdapter<Ware> adapter = new ArrayAdapter<Ware>(getActivity(),
                 android.R.layout.simple_list_item_1, wares);
 
@@ -36,11 +45,15 @@ public class ShoplistFragment extends Fragment{
             price = w.getPrice() * w.getAmount();
         }
 
+        priceText.setText(Double.toString(price));
+
+
     }
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-        return inflater.inflate(R.layout.shoplistfragment, container, false);
+        return inflater.inflate(R.layout.shoplistfragment, null);
 
     }
 }
