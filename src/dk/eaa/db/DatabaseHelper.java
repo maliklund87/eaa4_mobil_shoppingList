@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
 
     private static final String dbName = "shoppingDB";
 
-    
+
 
     public DatabaseHelper(Context context) {
         super(context, dbName, null, 1);
