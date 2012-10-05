@@ -16,6 +16,7 @@ public class EditNewVare extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
+        setContentView(R.layout.edit_new_vare);
     }
 
     @Override
