@@ -25,6 +25,9 @@ public class ShoplistFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
+    }
+
+    public void onStart(){
         ArrayAdapter<Ware> adapter = new ArrayAdapter<Ware>(getActivity(),
                 android.R.layout.simple_list_item_1, wares);
 
