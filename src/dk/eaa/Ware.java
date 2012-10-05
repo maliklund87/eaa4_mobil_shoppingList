@@ -48,4 +48,8 @@ public class Ware {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public String toString(){
+        return "Name: " + getName() + " Pris: " + getPrice();
+    }
 }
