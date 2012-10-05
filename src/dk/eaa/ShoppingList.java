@@ -22,7 +22,7 @@ public class ShoppingList extends Activity {
 
         ActionBar.Tab tab = actionBar.newTab()
                 .setText(R.string.tab_shopping_list)
-                .setTabListener(new ShoppingListTabListener<WaresFragment>(this, "List", WaresFragment.class));
+                .setTabListener(new ShoppingListTabListener<ShoplistFragment>(this, "List", ShoplistFragment.class));
         actionBar.addTab(tab);
 
         tab = actionBar.newTab()
