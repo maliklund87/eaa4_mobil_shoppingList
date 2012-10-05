@@ -3,9 +3,7 @@ package dk.eaa;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 
 public class ShoppingList extends Activity {
     /**
@@ -29,5 +27,11 @@ public class ShoppingList extends Activity {
                 .setText(R.string.tab_shopping_wares)
                 .setTabListener(new ShoppingListTabListener<WaresFragment>(this, "Wares", WaresFragment.class));
         actionBar.addTab(tab);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
     }
 }
