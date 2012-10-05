@@ -1,6 +1,7 @@
 package dk.eaa.db;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -15,6 +16,11 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
 
     private static final String dbName = "shoppingDB";
 
+    private static final String waresTable = "waresTable";
+    private static final String waresId = "waresId";
+    private static final String waresName = "waresName";
+    private static final String waresUnit = "waresUnit";
+    private static final String waresAmount = "waresAmount";
 
 
     public DatabaseHelper(Context context) {
@@ -22,12 +28,31 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + waresTable + " ("
+                + waresId + " INTEGER PRIMARY KEY, "
+                + waresName + " TEXT, "
+                + waresUnit + " TEXT, "
+                + waresAmount + " DECIMAL"
+                + ")"
+            );
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL("DROP TABLE IF EXISTS " + waresTable);
+        onCreate(db);
+    }
+
+    public void createDefaultContent() {
+
+    }
+
+    public Cursor getShoppingList() {
+        return null;
+    }
+
+    public Cursor getAllWares() {
+        return null;
     }
 }
