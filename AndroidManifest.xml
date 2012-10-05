@@ -19,5 +19,11 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+
+        <activity android:name="EditNewVare"
+                  android:label="@string/app_name">
+
+        </activity>
+
     </application>
 </manifest>

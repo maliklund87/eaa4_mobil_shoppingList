@@ -2,6 +2,7 @@ package dk.eaa;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
 
@@ -33,5 +34,12 @@ public class ShoppingList extends Activity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return true;
+    }
+
+    public void martin(View view)
+    {
+        Intent intent = new Intent(this, EditNewVare.class);
+        startActivity(intent);
+
     }
 }
