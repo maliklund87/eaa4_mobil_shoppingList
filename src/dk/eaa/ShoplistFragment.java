@@ -1,13 +1,17 @@
 package dk.eaa;
 
 import android.app.Fragment;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.Browser;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import dk.eaa.db.DatabaseHelper;
 
 import java.util.ArrayList;
 
@@ -37,6 +41,8 @@ public class ShoplistFragment extends Fragment{
         wareList = (ListView) getActivity().findViewById(R.id.itemListView);
         priceText = (TextView) getActivity().findViewById(R.id.priceTxtPriceId);
 
+        setUpWares();
+
         ArrayAdapter<Ware> adapter = new ArrayAdapter<Ware>(getActivity(),
                 android.R.layout.simple_list_item_1, wares);
 
@@ -48,6 +54,31 @@ public class ShoplistFragment extends Fragment{
         priceText.setText(Double.toString(price));
 
 
+    }
+
+
+    //Don't use unleash you know how
+    private void setUpWares(){
+        DatabaseHelper db = new DatabaseHelper(getActivity());
+        Cursor cur = db.getAllWares();
+
+        while(cur.moveToNext()){
+            int waresId = cur.getInt(1);
+            String waresName = cur.getString(2);
+            double waresPrice = cur.getDouble(3);
+            String wareUnit = cur.getString(4);
+            double waresAmount = cur.getDouble(5);
+
+            Ware ware = new Ware(waresName);
+            ware.setPrice(waresPrice);
+            ware.setAmount(waresAmount);
+            ware.setId(waresId);
+            ware.setUnit(wareUnit);
+            wares.add(ware);
+
+
+
+        }
     }
 
     @Override

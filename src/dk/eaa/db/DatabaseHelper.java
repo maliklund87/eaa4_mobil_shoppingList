@@ -90,5 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
 
     public void updateWares(List<Ware> waresToUpdate) {
 
+
+
     }
 }

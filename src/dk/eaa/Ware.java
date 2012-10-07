@@ -11,6 +11,7 @@ public class Ware {
 
     private String name, unit;
     private double amount, price;
+    private int id;
 
     public Ware(String name){
 
@@ -51,5 +52,13 @@ public class Ware {
 
     public String toString(){
         return "Name: " + getName() + " Pris: " + getPrice();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
