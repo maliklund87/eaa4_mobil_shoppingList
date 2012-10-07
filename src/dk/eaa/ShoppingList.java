@@ -2,10 +2,14 @@ package dk.eaa;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.*;
 
 public class ShoppingList extends Activity {
+
+    Fragment framgent1, fragment2;
+
     /**
      * Called when the activity is first created.
      */
@@ -33,5 +37,19 @@ public class ShoppingList extends Activity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return true;
+    }
+
+    public static class FirstMenuFragment extends Fragment{
+
+        @Override
+        public void onCreate(Bundle saveInstanceState){
+            super.onCreate(saveInstanceState);
+            setHasOptionsMenu(true);
+        }
+
+        @Override
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+
+        }
     }
 }
