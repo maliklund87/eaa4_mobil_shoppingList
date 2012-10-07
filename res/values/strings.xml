@@ -4,5 +4,12 @@
     <string name="tab_shopping_list">List</string>
     <string name="tab_shopping_wares">Wares</string>
     <string name="priceTxtName">Samlet pris:</string>
+    <string name="menu_save">Save</string>
     <string name="priceTxtPrice">0</string>
+    <string name="menuLabelName">Name</string>
+    <string name="menuLabelUnit">Unit</string>
+    <string name="menuLabelAmount">Amount</string>
+    <string name="menu_forword">Forword</string>
+    <string name="memu_backword">Backword</string>
+    <string name="menuLabelPrice">Price</string>
 </resources>
