@@ -1,5 +1,6 @@
 package dk.eaa.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,6 +19,9 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper  {
 
     private static final String dbName = "shoppingDB";
+
+    private static final String idCounterTable = "idTable";
+    private static final String idCounterId = "idCounter";
 
     private static final String waresTable = "waresTable";
     private static final String waresId = "waresId";
@@ -38,6 +42,8 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + idCounterTable + " ("
+                + idCounterId + " INTEGER");
         db.execSQL("CREATE TABLE " + waresTable + " ("
                 + waresId + " INTEGER PRIMARY KEY, "
                 + waresName + " TEXT, "
@@ -52,7 +58,6 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
                 + shoppingListQuantity + " INTEGER"
                 + ")"
             );
-
     }
 
     @Override
@@ -66,7 +71,12 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
     }
 
     public Cursor getShoppingList() {
-        return null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cur = db.rawQuery("SELECT " + shoppingListItemId + " as _id, "
+                + shoppingListWareId + ", " + shoppingListQuantity
+                + ")", new String[]{}
+            );
+        return cur;
     }
 
     public Cursor getAllWares() {
@@ -88,9 +98,39 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
         return ware;
     }
 
+    /**
+     * Looks up an ID counter in the database.
+     * @return
+     */
+    private int createId() {
+        // get current id
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + idCounterTable, new String[]{});
+        int id = cursor.getInt(cursor.getColumnIndex(idCounterId));
+
+        // increment id
+        ContentValues cv = new ContentValues();
+        cv.put(idCounterId, id++);
+        
+
+        return id;
+    }
+
+    public void saveWare(Ware ware) {
+        ware.setId(createId());
+
+        ContentValues cv = new ContentValues();
+        cv.put(waresId, ware.getId());
+        cv.put(waresName, ware.getName());
+        cv.put(waresPrice, ware.getPrice());
+        cv.put(waresUnit, ware.getUnit());
+        cv.put(waresAmount, ware.getAmount());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(waresTable, waresId, cv);
+    }
+
     public void updateWares(List<Ware> waresToUpdate) {
-
-
 
     }
 }
