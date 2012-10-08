@@ -112,6 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
         ware.setPrice(cursor.getDouble(cursor.getColumnIndex(waresPrice)));
         ware.setAmount(cursor.getDouble(cursor.getColumnIndex(waresAmount)));
         ware.setUnit(cursor.getString(cursor.getColumnIndex(waresUnit)));
+        ware.setId(cursor.getInt(cursor.getColumnIndex(waresId)));
         return ware;
     }
 
