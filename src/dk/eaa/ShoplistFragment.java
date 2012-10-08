@@ -54,6 +54,7 @@ public class ShoplistFragment extends Fragment{
         priceText.setText(Double.toString(price));
 
 
+
     }
 
 
@@ -63,11 +64,11 @@ public class ShoplistFragment extends Fragment{
         Cursor cur = db.getShoppingList();
 
         while(cur.moveToNext()){
-            int waresId = cur.getInt(1);
-            String waresName = cur.getString(2);
-            double waresPrice = cur.getDouble(3);
-            String wareUnit = cur.getString(4);
-            double waresAmount = cur.getDouble(5);
+            int waresId = cur.getInt(0);
+            String waresName = cur.getString(1);
+            double waresPrice = cur.getDouble(2);
+            String wareUnit = cur.getString(3);
+            double waresAmount = cur.getDouble(4);
 
             Ware ware = new Ware(waresName);
             ware.setPrice(waresPrice);
