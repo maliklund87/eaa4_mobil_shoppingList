@@ -21,7 +21,9 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
     private static final String dbName = "shoppingDB";
 
     private static final String idCounterTable = "idTable";
-    private static final String idCounterId = "idCounter";
+    private static final String idCounterId = "idCounterId";
+    private static final String idCounterValue = "idCounterValue";
+    private static final int idID = 1;
 
     private static final String waresTable = "waresTable";
     private static final String waresId = "waresId";
@@ -42,22 +44,32 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + idCounterTable + " ("
-                + idCounterId + " INTEGER");
+//        db.execSQL("CREATE TABLE " + idCounterTable + " ("
+//                + idCounterId + " INTEGER PRIMARY KEY, "
+//                + idCounterValue + " INTEGER)"
+//        );
+//
+//        ContentValues cv = new ContentValues();
+//        cv.put(idCounterId, idID);
+//        cv.put(idCounterValue, 0);
+//        db.insert(idCounterTable, idCounterId, cv);
+
         db.execSQL("CREATE TABLE " + waresTable + " ("
-                + waresId + " INTEGER PRIMARY KEY, "
+                + waresId + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + waresName + " TEXT, "
                 + waresPrice + " DECIMAL, "
                 + waresUnit + " TEXT, "
                 + waresAmount + " DECIMAL"
                 + ")"
-            );
+        );
         db.execSQL("CREATE TABLE " + shoppingListTable + "("
-                + shoppingListItemId + " INTEGER PRIMARY KEY, "
+                + shoppingListItemId + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + shoppingListWareId + " INTEGER FOREIGN KEY, "
                 + shoppingListQuantity + " INTEGER"
                 + ")"
-            );
+        );
+
+        createDefaultContent();
     }
 
     @Override
@@ -99,28 +111,31 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
     }
 
     /**
-     * Looks up an ID counter in the database.
+     * Looks up an ID counter in the database and increments.
      * @return
      */
     private int createId() {
         // get current id
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + idCounterTable, new String[]{});
-        int id = cursor.getInt(cursor.getColumnIndex(idCounterId));
+        Cursor cursor = db.rawQuery("SELECT * FROM " + idCounterTable
+                + " WHERE " + idCounterId + " = " + idID,
+                new String[]{});
+        int id = cursor.getInt(cursor.getColumnIndex(idCounterValue));
 
         // increment id
         ContentValues cv = new ContentValues();
-        cv.put(idCounterId, id++);
-        
+        cv.put(idCounterId, idID);
+        cv.put(idCounterValue, id++);
+        db.insert(idCounterTable, idCounterId, cv);
 
         return id;
     }
 
     public void saveWare(Ware ware) {
-        ware.setId(createId());
+//        ware.setId(createId());
 
         ContentValues cv = new ContentValues();
-        cv.put(waresId, ware.getId());
+//        cv.put(waresId, ware.getId());
         cv.put(waresName, ware.getName());
         cv.put(waresPrice, ware.getPrice());
         cv.put(waresUnit, ware.getUnit());
