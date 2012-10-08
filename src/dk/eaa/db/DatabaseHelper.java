@@ -69,7 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
                 + ")"
         );
 
-        createDefaultContent();
+        createDefaultContent(db);
     }
 
     @Override
@@ -78,9 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
         onCreate(db);
     }
 
-    public void createDefaultContent() {
-        SQLiteDatabase db = this.getWritableDatabase();
-
+    public void createDefaultContent(SQLiteDatabase db) {
         ContentValues cv = new ContentValues();
         cv.put(waresName, "Vare01");
         cv.put(waresAmount, 500);
@@ -93,7 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cur = db.rawQuery("SELECT " + shoppingListItemId + " as _id, "
                 + shoppingListWareId + ", " + shoppingListQuantity
-                + ")", new String[]{}
+                + " FROM " + shoppingListTable, new String[]{}
             );
         return cur;
     }
