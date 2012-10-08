@@ -32,10 +32,6 @@ public class WaresFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        wares = new ArrayList<Ware>();
-        setUpWares();
-
     }
 
     @Override
@@ -43,14 +39,11 @@ public class WaresFragment extends Fragment {
         super.onStart();
         wares = new ArrayList<Ware>();
         wareList = (ListView) getActivity().findViewById(R.id.wares_list);
-
-
+        wareList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         setUpWares();
 
         ArrayAdapter<Ware> adapter = new ArrayAdapter<Ware>(getActivity(),
                 android.R.layout.simple_list_item_1, wares);
-
-
 
 
     }
@@ -86,9 +79,6 @@ public class WaresFragment extends Fragment {
             ware.setId(waresId);
             ware.setUnit(wareUnit);
             wares.add(ware);
-
-
-
         }
     }
 }

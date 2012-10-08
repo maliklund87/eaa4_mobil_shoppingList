@@ -79,7 +79,14 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
     }
 
     public void createDefaultContent() {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues cv = new ContentValues();
+        cv.put(waresName, "Vare01");
+        cv.put(waresAmount, 500);
+        cv.put(waresPrice, 25);
+        cv.put(waresUnit, "kg");
+        db.insert(waresTable, waresId, cv);
     }
 
     public Cursor getShoppingList() {
@@ -94,7 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
     public Cursor getAllWares() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cur = db.rawQuery("SELECT " + waresId + " as _id, "
-                + waresName + ", " + waresUnit + ", " + waresAmount + " "
+                + waresName + ", " + waresPrice + ", " + waresUnit + ", " + waresAmount + " "
                 + "FROM " + waresTable, new String[]{}
             );
         return cur;
