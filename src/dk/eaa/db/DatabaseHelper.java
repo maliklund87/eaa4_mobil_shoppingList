@@ -25,12 +25,12 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
     private static final String idCounterValue = "idCounterValue";
     private static final int idID = 1;
 
-    private static final String waresTable = "waresTable";
-    private static final String waresId = "waresId";
-    private static final String waresName = "waresName";
-    private static final String waresPrice = "waresPrice";
-    private static final String waresUnit = "waresUnit";
-    private static final String waresAmount = "waresAmount";
+    public static final String waresTable = "waresTable";
+    public static final String waresId = "waresId";
+    public static final String waresName = "waresName";
+    public static final String waresPrice = "waresPrice";
+    public static final String waresUnit = "waresUnit";
+    public static final String waresAmount = "waresAmount";
 
     private static final String shoppingListTable = "shoppingListTable";
     private static final String shoppingListItemId = "shoppingListItemId";
@@ -55,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
 //        db.insert(idCounterTable, idCounterId, cv);
 
         db.execSQL("CREATE TABLE " + waresTable + " ("
-                + waresId + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + waresId + " INTEGER PRIMARY KEY, "
                 + waresName + " TEXT, "
                 + waresPrice + " DECIMAL, "
                 + waresUnit + " TEXT, "
@@ -80,6 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
 
     public void createDefaultContent(SQLiteDatabase db) {
         ContentValues cv = new ContentValues();
+        cv.put(waresId, 1);
         cv.put(waresName, "Vare01");
         cv.put(waresAmount, 500);
         cv.put(waresPrice, 25);
