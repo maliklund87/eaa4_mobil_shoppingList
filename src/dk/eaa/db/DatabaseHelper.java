@@ -64,7 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
         );
         db.execSQL("CREATE TABLE " + shoppingListTable + "("
                 + shoppingListItemId + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + shoppingListWareId + " INTEGER FOREIGN KEY, "
+                + shoppingListWareId + " INTEGER, "
                 + shoppingListQuantity + " INTEGER"
                 + ")"
         );
