@@ -18,6 +18,14 @@ public class Ware {
         this.name = name;
     }
 
+    public Ware(String name, String unit, double amount, double price){
+        this.name = name;
+        this.amount = amount;
+        this.unit = unit;
+        this.price = price;
+
+    }
+
     public String getName() {
         return name;
     }
