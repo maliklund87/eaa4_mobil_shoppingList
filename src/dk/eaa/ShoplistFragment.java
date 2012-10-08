@@ -60,7 +60,7 @@ public class ShoplistFragment extends Fragment{
     //Don't use unleash you know how
     private void setUpWares(){
         DatabaseHelper db = new DatabaseHelper(getActivity());
-        Cursor cur = db.getAllWares();
+        Cursor cur = db.getShoppingList();
 
         while(cur.moveToNext()){
             int waresId = cur.getInt(1);
