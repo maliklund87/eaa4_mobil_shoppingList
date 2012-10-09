@@ -1,6 +1,7 @@
 package dk.eaa;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.*;
@@ -31,6 +32,7 @@ public class WaresFragment extends Fragment {
         wares = new ArrayList<Ware>();
         selectedWares = new ArrayList<Ware>();
 
+        // create some dummy products
         Ware ware = new Ware("Thinkpad", "stk", 1, 10000);
         wares.add(ware);
 
@@ -87,6 +89,9 @@ public class WaresFragment extends Fragment {
                         break;
                     case R.id.wares_menu_edit:
                         // start Martin's Edit activity
+                        Intent intent = new Intent(getActivity(), EditNewVare.class);
+                        intent.putExtra("ware_key", selectedWares);
+                        startActivity(intent);
                         break;
                     default:
                         result = false;
