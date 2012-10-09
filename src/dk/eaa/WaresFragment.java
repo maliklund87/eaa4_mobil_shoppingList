@@ -31,13 +31,6 @@ public class WaresFragment extends Fragment {
         super.onCreate(savedInstanceState);
         wares = new ArrayList<Ware>();
         selectedWares = new ArrayList<Ware>();
-
-        // create some dummy products
-        Ware ware = new Ware("Thinkpad", "stk", 1, 10000);
-        wares.add(ware);
-
-        ware = new Ware("Bodum", "stk", 1, 250);
-        wares.add(ware);
         setUpWares();
     }
 
