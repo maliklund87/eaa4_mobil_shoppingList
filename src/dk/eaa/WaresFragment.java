@@ -118,7 +118,6 @@ public class WaresFragment extends Fragment {
         DatabaseHelper db = new DatabaseHelper(getActivity());
 //        db.onCreate(db.getWritableDatabase());
         Cursor cur = db.getAllWares();
-
         while(!cur.isAfterLast()){
             int waresId = cur.getInt(cur.getColumnIndex("_id"));
 
@@ -128,5 +127,7 @@ public class WaresFragment extends Fragment {
             wares.add(ware);
             cur.moveToNext();
         }
+        cur.close();
+        db.close();
     }
 }
