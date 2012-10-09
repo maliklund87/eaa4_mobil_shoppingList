@@ -13,6 +13,8 @@ public class Ware {
     private double amount, price;
     private int id;
 
+    private boolean selected;
+
     public Ware(String name){
 
         this.name = name;
@@ -59,7 +61,8 @@ public class Ware {
     }
 
     public String toString(){
-        return "Name: " + getName() + " Pris: " + getPrice();
+        String prepend = selected? " * " : "";
+        return prepend +  "Name: " + getName() + " Pris: " + getPrice();
     }
 
     public int getId() {
@@ -70,4 +73,7 @@ public class Ware {
         this.id = id;
     }
 
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 }

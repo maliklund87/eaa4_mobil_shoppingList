@@ -1,20 +1,13 @@
 package dk.eaa;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.view.*;
+import android.widget.*;
 import dk.eaa.db.DatabaseHelper;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,34 +19,92 @@ import java.util.List;
 public class WaresFragment extends Fragment {
 
     ArrayList<Ware> wares;
-    ListView wareList;
+    ArrayList<Ware> selectedWares;
+
+    ListView wareListView;
+    ArrayAdapter<Ware> wareListAdapter;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        wares = new ArrayList<Ware>();
+        selectedWares = new ArrayList<Ware>();
+
+        Ware ware = new Ware("Thinkpad", "stk", 1, 10000);
+        wares.add(ware);
+
+        ware = new Ware("Bodum", "stk", 1, 250);
+        wares.add(ware);
+        setUpWares();
     }
 
     @Override
     public void onStart(){
         super.onStart();
-        wares = new ArrayList<Ware>();
-        wareList = (ListView) getActivity().findViewById(R.id.wares_list);
-        wareList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        setUpWares();
-
-        ArrayAdapter<Ware> adapter = new ArrayAdapter<Ware>(getActivity(),
-                android.R.layout.simple_list_item_1, wares);
-
-
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Toast.makeText(getActivity().getApplicationContext(), "Fetching wares", Toast.LENGTH_LONG);
 
-       // ListView listView = (ListView) getActivity().findViewById(R.id.wares_list);
-       // listView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.wares_list_item_layout, R.id.layout_item_content,tempWares));
+        wareListAdapter = new ArrayAdapter<Ware>(getActivity(),
+                android.R.layout.simple_list_item_1, wares); // should probably be a SimpleCursorAdapter.
+
+        wareListView = (ListView) getActivity().findViewById(R.id.wares_list);
+        wareListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        wareListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode actionMode, int position, long id, boolean checked) {
+                wares.get(position).setSelected(checked);
+                if (checked) {
+                    selectedWares.add(wares.get(position));
+                } else {
+                    selectedWares.remove(wares.get(position));
+                }
+                wareListAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+                MenuInflater inflater = actionMode.getMenuInflater();
+                inflater.inflate(R.menu.ware_select_menu, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+                return false;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+                // do something when menu-item clicked
+                boolean result = true;
+                switch (menuItem.getItemId()) {
+                    case R.id.wares_menu_delete:
+                        break;
+                    case R.id.wares_menu_edit:
+                        // start Martin's Edit activity
+                        break;
+                    default:
+                        result = false;
+                        break;
+                }
+                return result;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode actionMode) {
+                for (Ware w : wares) {
+                    w.setSelected(false);
+                }
+                selectedWares.clear();
+            }
+        });
+
+        wareListView.setAdapter(wareListAdapter);
     }
 
     @Override
@@ -61,24 +112,21 @@ public class WaresFragment extends Fragment {
         return inflater.inflate(R.layout.wares_list_layout, null);
     }
 
-    //Don't use unleash you know how
+    //Don't use unless you know how
     private void setUpWares(){
+        Toast.makeText(getActivity().getApplicationContext(), "Fetching wares", Toast.LENGTH_LONG);
         DatabaseHelper db = new DatabaseHelper(getActivity());
+//        db.onCreate(db.getWritableDatabase());
         Cursor cur = db.getAllWares();
 
-        while(cur.moveToNext()){
-            int waresId = cur.getInt(1);
-            String waresName = cur.getString(2);
-            double waresPrice = cur.getDouble(3);
-            String wareUnit = cur.getString(4);
-            double waresAmount = cur.getDouble(5);
+        while(!cur.isAfterLast()){
+            int waresId = cur.getInt(cur.getColumnIndex("_id"));
 
-            Ware ware = new Ware(waresName);
-            ware.setPrice(waresPrice);
-            ware.setAmount(waresAmount);
+            Ware ware = db.getWare(waresId); // stupid, I know. Get list to show cursor in stead of list
+            Toast.makeText(getActivity().getApplicationContext(), ware.toString(), Toast.LENGTH_LONG);
             ware.setId(waresId);
-            ware.setUnit(wareUnit);
             wares.add(ware);
+            cur.moveToNext();
         }
     }
 }
