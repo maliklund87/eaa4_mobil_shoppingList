@@ -12,6 +12,7 @@
     <string name="menu_forword">Forword</string>
     <string name="memu_backword">Backword</string>
     <string name="menuLabelPrice">Price</string>
+    <string name="menu_new">New</string>
     <string name="wares_menu_edit">Edit</string>
     <string name="wares_menu_select">Select</string>
     <string name="wares_menu_delete">Delete</string>
