@@ -38,7 +38,7 @@ public class WaresFragment extends Fragment {
 
         ware = new Ware("Bodum", "stk", 1, 250);
         wares.add(ware);
-//        setUpWares();
+        setUpWares();
     }
 
     @Override
@@ -90,7 +90,7 @@ public class WaresFragment extends Fragment {
                     case R.id.wares_menu_edit:
                         // start Martin's Edit activity
                         Intent intent = new Intent(getActivity(), EditNewVare.class);
-                        intent.putExtra("ware_key", selectedWares);
+                        intent.putExtra("dk.eaa.ware_key", selectedWares);
                         startActivity(intent);
                         break;
                     default:
@@ -123,15 +123,15 @@ public class WaresFragment extends Fragment {
         DatabaseHelper db = new DatabaseHelper(getActivity());
 //        db.onCreate(db.getWritableDatabase());
         Cursor cur = db.getAllWares();
-
-        while(!cur.isAfterLast()){
+        while(cur.moveToNext()){
             int waresId = cur.getInt(cur.getColumnIndex("_id"));
 
-            Ware ware = db.getWare(waresId); // stupid, I know. Get list to show cursor in stead of list
+            Ware ware = db.getWare(waresId); // stupid, I know. Get list to show cursor in stead.
             Toast.makeText(getActivity().getApplicationContext(), ware.toString(), Toast.LENGTH_LONG);
             ware.setId(waresId);
             wares.add(ware);
-            cur.moveToNext();
+//            cur.moveToNext();
         }
+        db.close();
     }
 }
