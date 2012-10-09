@@ -118,7 +118,7 @@ public class WaresFragment extends Fragment {
 //        db.onCreate(db.getWritableDatabase());
         Cursor cur = db.getAllWares();
         while(cur.moveToNext()){
-            int waresId = cur.getInt(cur.getColumnIndex("_Id"));
+            int waresId = cur.getInt(cur.getColumnIndex("_id"));
 
             Ware ware = db.getWare(waresId); // stupid, I know. Get list to show cursor in stead.
             Toast.makeText(getActivity().getApplicationContext(), ware.toString(), Toast.LENGTH_LONG);

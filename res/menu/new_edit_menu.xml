@@ -8,10 +8,6 @@
           android:orderInCategory="100"
           android:showAsAction="never" />
 
-    <item android:id="@+id/menuNew"
-          android:title="@string/menu_new"
-          android:showAsAction="always|withText"/>
-
     <item android:id="@+id/menuBackword"
           android:title="@string/memu_backword"
           android:showAsAction="always|withText"/>

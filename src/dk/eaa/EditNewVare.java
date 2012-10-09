@@ -77,9 +77,11 @@ public class EditNewVare extends Activity
         Double amount = Double.parseDouble(((EditText) findViewById(R.id.amount)).getText() + "");
         Double price = Double.parseDouble(((EditText) findViewById(R.id.price)).getText() + "");
 
-        getWareList().add(new Ware(name, unit, amount, price));
+        Ware new_ware = new Ware(name, unit, amount, price);
 
-        saveData();
+        DatabaseHelper db = new DatabaseHelper(this);
+
+        db.saveWare(new_ware);
     }
 
     private void saveChange()
