@@ -33,8 +33,7 @@ public class EditNewVare extends Activity
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         setContentView(R.layout.edit_new_vare);
 
-
-        //this.ware = (ArrayList<Ware>) savedInstanceState.get("ware_key");
+        this.ware = (ArrayList<Ware>) savedInstanceState.get("ware_key");
 
         this.ware = new ArrayList<Ware>();
         //Ware w1 = new Ware("vare1","kg", 2, 200);
