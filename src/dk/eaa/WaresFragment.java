@@ -41,6 +41,13 @@ public class WaresFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        wares.clear();
+        setUpWares();
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Toast.makeText(getActivity().getApplicationContext(), "Fetching wares", Toast.LENGTH_LONG);

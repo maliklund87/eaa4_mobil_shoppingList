@@ -33,7 +33,11 @@ public class EditNewVare extends Activity
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         setContentView(R.layout.edit_new_vare);
 
-        setWareList((ArrayList<Ware>) getIntent().getExtras().get("dk.eaa.ware_key"));
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            Object o = bundle.get("dk.eaa.ware_key");
+            setWareList((ArrayList<Ware>) o);
+        }
 
         if (ware == null) {
             ware = new ArrayList<Ware>();
@@ -82,6 +86,8 @@ public class EditNewVare extends Activity
         DatabaseHelper db = new DatabaseHelper(this);
 
         db.saveWare(new_ware);
+        db.close();
+        finish();
     }
 
     private void saveChange()
