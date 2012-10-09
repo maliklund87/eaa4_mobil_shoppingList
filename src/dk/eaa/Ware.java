@@ -69,4 +69,5 @@ public class Ware {
     public void setId(int id) {
         this.id = id;
     }
+
 }
