@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/wares_menu_new"
+          android:title="@string/wares_menu_new"
+          android:showAsAction="always"
+          />
     <item android:id="@+id/wares_menu_delete"
           android:title="@string/wares_menu_delete"
           android:showAsAction="always"

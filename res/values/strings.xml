@@ -16,4 +16,5 @@
     <string name="wares_menu_edit">Edit</string>
     <string name="wares_menu_select">Select</string>
     <string name="wares_menu_delete">Delete</string>
+    <string name="wares_menu_new">New</string>
 </resources>

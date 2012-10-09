@@ -86,6 +86,9 @@ public class WaresFragment extends Fragment {
                         intent.putExtra("dk.eaa.ware_key", selectedWares);
                         startActivity(intent);
                         break;
+                    case R.id.wares_menu_new:
+                        intent = new Intent(getActivity(), EditNewVare.class);
+                        startActivity(intent);
                     default:
                         result = false;
                         break;
