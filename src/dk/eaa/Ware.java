@@ -1,5 +1,7 @@
 package dk.eaa;
 
+import java.io.Serializable;
+
 /**
  * Created with IntelliJ IDEA.
  * User: tools
@@ -7,7 +9,7 @@ package dk.eaa;
  * Time: 8:55 AM
  * To change this template use File | Settings | File Templates.
  */
-public class Ware {
+public class Ware implements Serializable {
 
     private String name, unit;
     private double amount, price;

@@ -1,6 +1,7 @@
 package dk.eaa;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.*;
@@ -30,13 +31,8 @@ public class WaresFragment extends Fragment {
         super.onCreate(savedInstanceState);
         wares = new ArrayList<Ware>();
         selectedWares = new ArrayList<Ware>();
-
-        Ware ware = new Ware("Thinkpad", "stk", 1, 10000);
-        wares.add(ware);
-
-        ware = new Ware("Bodum", "stk", 1, 250);
-        wares.add(ware);
         setUpWares();
+       
     }
 
     @Override
@@ -87,6 +83,9 @@ public class WaresFragment extends Fragment {
                         break;
                     case R.id.wares_menu_edit:
                         // start Martin's Edit activity
+                        Intent intent = new Intent(getActivity(), EditNewVare.class);
+                        intent.putExtra("dk.eaa.ware_key", selectedWares);
+                        startActivity(intent);
                         break;
                     default:
                         result = false;
@@ -118,15 +117,15 @@ public class WaresFragment extends Fragment {
         DatabaseHelper db = new DatabaseHelper(getActivity());
 //        db.onCreate(db.getWritableDatabase());
         Cursor cur = db.getAllWares();
-
-        while(!cur.isAfterLast()){
+        while(cur.moveToNext()){
             int waresId = cur.getInt(cur.getColumnIndex("_Id"));
 
-            Ware ware = db.getWare(waresId); // stupid, I know. Get list to show cursor in stead of list
+            Ware ware = db.getWare(waresId); // stupid, I know. Get list to show cursor in stead.
             Toast.makeText(getActivity().getApplicationContext(), ware.toString(), Toast.LENGTH_LONG);
             ware.setId(waresId);
             wares.add(ware);
-            cur.moveToNext();
+//            cur.moveToNext();
         }
+        db.close();
     }
 }

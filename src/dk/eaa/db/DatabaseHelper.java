@@ -70,6 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
         );
 
         createDefaultContent(db);
+//        db.close();
     }
 
     @Override
@@ -108,12 +109,14 @@ public class DatabaseHelper extends SQLiteOpenHelper  {
 
     public Ware getWare(int wareId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + waresTable + " WHERE " + wareId + " = " + wareId, new String[]{});
+        Cursor cursor = db.rawQuery("SELECT * FROM " + waresTable + " WHERE " + waresId + " = " + wareId, new String[]{});
+        cursor.moveToNext();
         Ware ware = new Ware(cursor.getString(cursor.getColumnIndex(waresName)));
         ware.setPrice(cursor.getDouble(cursor.getColumnIndex(waresPrice)));
         ware.setAmount(cursor.getDouble(cursor.getColumnIndex(waresAmount)));
         ware.setUnit(cursor.getString(cursor.getColumnIndex(waresUnit)));
         ware.setId(cursor.getInt(cursor.getColumnIndex(waresId)));
+        db.close();
         return ware;
     }
 
