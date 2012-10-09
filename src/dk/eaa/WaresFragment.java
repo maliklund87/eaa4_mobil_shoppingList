@@ -36,7 +36,7 @@ public class WaresFragment extends Fragment {
 
         ware = new Ware("Bodum", "stk", 1, 250);
         wares.add(ware);
-        setUpWares();
+//        setUpWares();
     }
 
     @Override
@@ -125,7 +125,6 @@ public class WaresFragment extends Fragment {
             Ware ware = db.getWare(waresId); // stupid, I know. Get list to show cursor in stead of list
             Toast.makeText(getActivity().getApplicationContext(), ware.toString(), Toast.LENGTH_LONG);
             ware.setId(waresId);
-            
             wares.add(ware);
             cur.moveToNext();
         }

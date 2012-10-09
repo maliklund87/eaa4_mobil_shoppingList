@@ -37,10 +37,10 @@ public class EditNewVare extends Activity
         //this.ware = (ArrayList<Ware>) savedInstanceState.get("ware_key");
 
         this.ware = new ArrayList<Ware>();
-        Ware w1 = new Ware("vare1","kg", 2, 200);
-        Ware w2 = new Ware("vare2", "ls", 7, 300);
-        this.ware.add(w1);
-        this.ware.add(w2);
+        //Ware w1 = new Ware("vare1","kg", 2, 200);
+        //Ware w2 = new Ware("vare2", "ls", 7, 300);
+        //this.ware.add(w1);
+        //this.ware.add(w2);
 
         if (ware.size() != index)
         {
@@ -56,8 +56,7 @@ public class EditNewVare extends Activity
 
         db.updateWares(getWareList());
         getWareList().clear();
-        Intent intent = new Intent(this, ShoppingList.class);
-        startActivityForResult(intent, 0);
+       finish();
     }
 
     private void insertData()
@@ -78,10 +77,7 @@ public class EditNewVare extends Activity
 
         getWareList().add(new Ware(name, unit, amount, price));
 
-        ((EditText) findViewById(R.id.name)).setText("");
-        ((EditText) findViewById(R.id.unit)).setText("");
-        ((EditText) findViewById(R.id.amount)).setText("");
-        ((EditText) findViewById(R.id.price)).setText("");
+        saveData();
     }
 
     private void saveChange()
@@ -128,9 +124,19 @@ public class EditNewVare extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.new_edit_menu, menu);
-        return true;
+        if (getWareList().size() <= 0)
+        {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.edit_new_vare_menu_new, menu);
+            return true;
+        }
+        else
+        {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.new_edit_menu, menu);
+            return true;
+        }
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item)
