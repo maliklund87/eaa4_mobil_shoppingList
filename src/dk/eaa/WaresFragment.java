@@ -32,6 +32,7 @@ public class WaresFragment extends Fragment {
         wares = new ArrayList<Ware>();
         selectedWares = new ArrayList<Ware>();
         setUpWares();
+       
     }
 
     @Override
